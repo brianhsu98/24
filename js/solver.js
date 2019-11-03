@@ -1,5 +1,32 @@
 OPERATORS = ["*", "/", "+", "-"];
 
+function addParens(num1, num2, num3, num4, op1, op2, op3) {
+  num_array = [num1, num2, num3, num4];
+  paren_arrays = [];
+  for (i = 0; i < num_array.length - 1; i += 1) {
+    for (j = i + 1; j < num_array.length; j += 1) {
+      var new_array = num_array.slice();
+      new_array[i] = "(" + num_array[i];
+      new_array[j] = num_array[j] + ")";
+      paren_arrays.push(new_array);
+    }
+  }
+  equations = [];
+  for (paren_array of paren_arrays) {
+    equations.push(
+      paren_array[0] +
+        op1 +
+        paren_array[1] +
+        op2 +
+        paren_array[2] +
+        op3 +
+        paren_array[3]
+    );
+  }
+
+  return equations;
+}
+
 function solve(num1, num2, num3, num4) {
   var possible_equations = [];
 
@@ -7,7 +34,15 @@ function solve(num1, num2, num3, num4) {
     for (operation_2 of OPERATORS) {
       for (operation_3 of OPERATORS) {
         possible_equations.push(
-          num1 + operation_1 + num2 + operation_2 + num3 + operation_3 + num4
+          ...addParens(
+            num1,
+            num2,
+            num3,
+            num4,
+            operation_1,
+            operation_2,
+            operation_3
+          )
         );
       }
     }
