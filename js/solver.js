@@ -36,6 +36,7 @@ function solve(num1, num2, num3, num4) {
       return res;
     }
   }
+  return null;
 }
 
 function solveOrdered(num1, num2, num3, num4) {
