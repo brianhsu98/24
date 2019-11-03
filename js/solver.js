@@ -12,7 +12,7 @@ function addParens(num1, num2, num3, num4, op1, op2, op3) {
     }
   }
   equations = [];
-  for (paren_array of paren_arrays) {
+  for (var paren_array of paren_arrays) {
     equations.push(
       paren_array[0] +
         op1 +
@@ -30,7 +30,7 @@ function addParens(num1, num2, num3, num4, op1, op2, op3) {
 function solve(num1, num2, num3, num4) {
   var permutations = permutator([num1, num2, num3, num4]);
 
-  for (permutation of permutations) {
+  for (var permutation of permutations) {
     var res = solveOrdered(...permutation);
     if (res) {
       return res;
@@ -42,9 +42,9 @@ function solve(num1, num2, num3, num4) {
 function solveOrdered(num1, num2, num3, num4) {
   var possible_equations = [];
 
-  for (operation_1 of OPERATORS) {
-    for (operation_2 of OPERATORS) {
-      for (operation_3 of OPERATORS) {
+  for (var operation_1 of OPERATORS) {
+    for (var operation_2 of OPERATORS) {
+      for (var operation_3 of OPERATORS) {
         possible_equations.push(
           ...addParens(
             num1,
@@ -60,9 +60,10 @@ function solveOrdered(num1, num2, num3, num4) {
     }
   }
 
-  for (possible_equation of possible_equations) {
+  for (var possible_equation of possible_equations) {
     var result = eval(possible_equation);
-    if (result === 24) {
+    // Accounting for floating point error: ugly hack, but probably works!
+    if (Math.abs(24 - result) < 0.000001) {
       return possible_equation;
     }
   }
