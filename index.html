@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <title>24 Solver</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h1 class="mt-5">24 Solver</h1>
+      </div>
+
+      <div class="row">
+        Enter 4 numbers!
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-1">
+          <input id="num1" type="number" class="form-control" placeholder="" />
+        </div>
+        <div class="col-1">
+          <input id="num2" type="number" class="form-control" placeholder="" />
+        </div>
+        <div class="col-1">
+          <input id="num3" type="number" class="form-control" placeholder="" />
+        </div>
+        <div class="col-1">
+          <input id="num4" type="number" class="form-control" placeholder="" />
+        </div>
+        <div class="col-2">
+          <button id="solve" class="btn btn-primary">Solve</button>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div
+          id="success"
+          class="alert alert-success"
+          style="display:none"
+        ></div>
+        <div id="failure" class="alert alert-danger" style="display:none">
+          No solution found!
+        </div>
+        <div id="error" class="alert alert-danger" style="display:none">
+          Enter correct numbers, please :((
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/solver.js"></script>
+    <script>
+      function getNumber(id) {
+        return $("#" + id).val();
+      }
+
+      function validateNums() {
+        numbers = [
+          getNumber("num1"),
+          getNumber("num2"),
+          getNumber("num3"),
+          getNumber("num3"),
+        ];
+
+        for (number of numbers) {
+          if (number === "420") {
+            alert("HIGH FIVE");
+          }
+          if (number === "69") {
+            alert("NICE");
+          }
+          if (number === "") {
+            return false;
+          }
+          if (number < 1 || number > 13) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      $("#solve").click(function() {
+        $("#success").hide();
+        $("#failure").hide();
+        $("#error").hide();
+
+        if (!validateNums()) {
+          $("#error").show();
+          return;
+        }
+
+        var expression = solve(
+          getNumber("num1") + " ",
+          " " + getNumber("num2") + " ",
+          " " + getNumber("num3") + " ",
+          " " + getNumber("num4") + " "
+        );
+
+        if (expression) {
+          $("#success").text("Solved using " + expression + " = 24");
+          $("#success").show();
+        } else {
+          $("#failure").show();
+        }
+      });
+    </script>
+  </body>
+</html>
