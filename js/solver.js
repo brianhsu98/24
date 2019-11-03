@@ -28,6 +28,17 @@ function addParens(num1, num2, num3, num4, op1, op2, op3) {
 }
 
 function solve(num1, num2, num3, num4) {
+  var permutations = permutator([num1, num2, num3, num4]);
+
+  for (permutation of permutations) {
+    var res = solveOrdered(...permutation);
+    if (res) {
+      return res;
+    }
+  }
+}
+
+function solveOrdered(num1, num2, num3, num4) {
   var possible_equations = [];
 
   for (operation_1 of OPERATORS) {
@@ -56,4 +67,26 @@ function solve(num1, num2, num3, num4) {
   }
 
   return null;
+}
+
+function permutator(inputArr) {
+  var results = [];
+
+  function permute(arr, memo) {
+    var cur,
+      memo = memo || [];
+
+    for (var i = 0; i < arr.length; i++) {
+      cur = arr.splice(i, 1);
+      if (arr.length === 0) {
+        results.push(memo.concat(cur));
+      }
+      permute(arr.slice(), memo.concat(cur));
+      arr.splice(i, 0, cur[0]);
+    }
+
+    return results;
+  }
+
+  return permute(inputArr);
 }
